@@ -22,7 +22,6 @@ enum Options {
     DEPOSIT,
     FEE
 };
-void reset();
 void writeEvent(std::string msg) {
     std::cout << "[~] -> " + msg << std::endl;
 }
@@ -72,9 +71,6 @@ void handlePostLogin() {
     BankingInfo userInfo;
 
     userInfo = userInfo.load(); // load user data, should just set it in the function so I don't have to do userInfo = userInfo but oh well...
-    /*
-    TO FIX: loading doesn't load right. I'm casting it wrong or something.
-    */
     system("cls");
     std::cout << bankingLogo << std::endl;
 
@@ -148,14 +144,12 @@ int main() {
     } while (chosenOption <= 0 || chosenOption >= 3);
 
     if (chosenOption == 1) {
-        if (createAccount()) {
+        if (createAccount())
             writeEvent("Account created!");
-        }
         else {
             writeEvent("Failed to store or create login!");
             writeEvent("Make sure you have the proper permissions (I.E admin if you have issues)");
         }
-        reset();
     }
     else { // we can use else since we aren't allowing them to this point without using a correct number.
         if (handleLogin()) {
@@ -165,11 +159,6 @@ int main() {
         else {
             writeEvent("Login failed!");
         }
-        reset();
     }
 	return 0;
-}
-void reset() {
-    system("cls");
-    main();
 }
